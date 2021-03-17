@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  zookeeper:
+    image: zookeeper:3.4.13
+    ports:
+      - 2181:2181
+  admin:
+    image: jeffdocker2017/dubbo-admin
+    depends_on:
+      - zookeeper
+    ports:
+      - 18080:8080
+    environment:
+      - dubbo.admin.root.password=root
+      - dubbo.admin.guest.password=guest
+      - dubbo.registry.address=zookeeper://zookeeper:2181
